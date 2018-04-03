@@ -2,9 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-	<title>Historical Settings of Chinese Movies, wuxia, period drama, comedies, etc.</title>
+	<title>Personal History Timeline</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="Geany 1.23.1" />
 	<style type="text/css">
 		body {
 		  font: 12px sans-serif;
@@ -27,7 +26,7 @@
 		  stroke-dasharray: 2,2;
 		}
 
-		/*.nomPeriode {display:none;}*/
+		/*.periodName {display:none;}*/
 
 		text {
 			display:block;
@@ -53,7 +52,7 @@
 	// Historical Events
 	var events = events_json;
 
-	// On associe chaque film à une période
+	// Associate each event with a period
 	for (var i = 0; i < events.length; i++) {
 		for (var j = 0; j < periods.length; j++) {
 			if (events[i][0] >= periods[j][2] && events[i][0] <= periods[j][3]) {
@@ -62,10 +61,10 @@
 			}
 		}
 	}
-	// On ordonne le tableau selon les dates
+	// Sort the events by date
 	events.sort(function(a, b) { return (a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0)); });
 
-	// On détermine l'ordre d'affichage des events
+	// The order of display of the events is determined
 	var order = 1; var oldVar;
 	for (var i = 0; i < events.length; i++) {
 		order++;
@@ -87,10 +86,10 @@
 	//~ }
 	//~
 
-	// Positionnement de la frise
-	var margin = {top: 20, right: 150, bottom: 20, left: 1},
-    width = 4000 - margin.left - margin.right,
-    height = 700 - margin.top - margin.bottom;
+	// Positioning...
+	var margin = {top: 1, right: 1, bottom: 20, left: 1},
+    width = 1250 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 	// Frise
 	var formatNumber = d3.format(" 1f");
@@ -105,7 +104,7 @@
 
 	var xAxis = d3.svg.axis()
 		.scale(x)
-		.ticks(50)
+		.ticks(25)
 		.tickFormat(formatNumber)
 		.orient("bottom");
 
@@ -121,58 +120,59 @@
 		.call(xAxis);
 
 	var bar = 30;
-	// Affichage des périodes
-	svg.append("g").selectAll("periode")
+	// Display periods
+	svg.append("g").selectAll("period")
 			.data(periods)
 			.enter().append("rect")
-			.attr("class", "periode")
+			.attr("class", "period")
 			.attr("x", function(d) {return x(d[2]);})
-			.attr("y", function(d) {if (d[0] % 2 == 0) return height - (bar + 4); else return height - (bar + 4) * 2;}  )
+			.attr("y", function(d) {return height - (bar + 4) * ((d[0] % 10)+1);} )
 			.attr("width", function(d) {return x(d[3]) - x(d[2]);})
 			.attr("height", bar)
 			.attr("fill", function(d) {  return "hsl(" + (360 - d[0] * 19) + ",50%,50%)" });
-			//~ .on("mouseover", function(d) { d3.select("#nomPeriode" + d[0]).style("display", "block");})
-			//~ .on("mouseout", function(d) { d3.select("#nomPeriode" + d[0]).style("display", "none");});
+			//~ .on("mouseover", function(d) { d3.select("#periodName" + d[0]).style("display", "block");})
+			//~ .on("mouseout", function(d) { d3.select("#periodName" + d[0]).style("display", "none");});
 
-	// Affichage des noms de période
-	svg.append("g").selectAll(".nomPeriode")
+	// Display of period names
+	svg.append("g").selectAll(".periodName")
 			.data(periods)
 			.enter().append("a")
 			.attr("xlink:href", function(d) {return d[4];})
 			.append("text")
 			.text(function(d) {return d[1];})
-			.attr("class", "nomPeriode")
-			.attr ("id", function(d) {return "nomPeriode" + d[0];})
+			.attr("class", "periodName")
+			.attr ("id", function(d) {return "periodName" + d[0];})
 			.attr("text-anchor", "middle")
 			.attr("x", function(d) {return x((d[2] + d[3]) / 2);})
-			.attr("y", function(d) {if (d[0] % 2 == 0) return height - (bar + 4); else return height - (bar + 4) * 2;}  )
-			.attr("dy", "1.5em")
-			.attr("font-weight", "bold");
-			//~ .on("mouseover", function(d) { d3.select("#nomPeriode" + d[0]).style("display", "block");})
-			//~ .on("mouseout", function(d) { d3.select("#nomPeriode" + d[0]).style("display", "none");});
+			.attr("y", function(d) {return height - (bar + 4) * ((d[0] % 10)+1);}  )
+			.attr("dy", "1.5em");
+			// .attr("font-weight", "bold");
+			//~ .on("mouseover", function(d) { d3.select("#periodName" + d[0]).style("display", "block");})
+			//~ .on("mouseout", function(d) { d3.select("#periodName" + d[0]).style("display", "none");});
 
-	// On génère des lignes pour les events
-	svg.append("g").selectAll("ligneFilm")
+	// Generate lines for events
+	console.log(events);
+	svg.append("g").selectAll("eventLine")
 			.data(events)
 			.enter().append("line")
-			.attr("class", "ligneFilm")
+			.attr("class", "eventLine")
 			.attr("x1", function(d) {return x(d[0]);})
-			.attr("y1", function(d) {if (d[4] % 2 == 0) return height - bar; else return height - bar * 2;})
+			.attr("y1", function(d) {return (height - bar) * ((d[4] % 2)+1+d[1].length/100);})
 			.attr("x2", function(d) {return x(d[0]);})
 			.attr("y2", function(d) {return y(d[5]);})
 			.attr("stroke", "grey");
 
-	// Affichage des titres de events
-	var titres = svg.append("g").selectAll("titreFilm")
+	// Display of event titles
+	var titres = svg.append("g").selectAll("eventName")
 			.data(events)
 			.enter().append("a")
-			.attr("xlink:href", function(d){if (d[3] === "") return "http://www.imdb.com/find?q=" + d[1] + " " + d[2] + "&s=tt"; else return d[3];})
-			.attr("class", function(d) {return "titreFilm";});
+			.attr("xlink:href", function(d){return d[3];})
+			.attr("class", function(d) {return "eventName";});
 	titres.append("text")
 			.text(function(d) {return d[1] + " (" +  d[2] + ")";})
 			.attr("text-anchor", "left")
 			.attr("x", function(d) {return x(d[0]);}  )
-			.attr("y", function(d) {return y(d[5]);} )
+			.attr("y", function(d) {return y(Math.floor(Math.random() * 10));} )
 			.attr("dy", "0.75em")
 			.attr("dx", "0.25em");
 
