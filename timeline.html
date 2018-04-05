@@ -43,7 +43,7 @@
   <script type="text/javascript" src="./events.json"></script>
 
 	<script type="text/javascript">
-	// Durée couverte par la frise
+	// Overall timeline duration
 	var beginTimeline = -800;
 	var endTimeline = 2017;
 
@@ -61,8 +61,9 @@
 			}
 		}
 	}
+
 	// Sort the events by date
-	events.sort(function(a, b) { return (a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0)); });
+	//events.sort(function(a, b) { return (a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0)); });
 
 	// The order of display of the events is determined
 	var order = 1; var oldVar;
@@ -75,23 +76,11 @@
 		oldVar = events[i]["year"];
 	}
 
-	//~ // On calcule le nombre de events par période
-	//~ for (var i = 0; i < periods.length; i++) {
-		//~ var nbevents = 0;
-		//~ for (var j = 0; j < events.length; j++) {
-			//~ if (events[j][4] == periods[i][0])
-				//~ nbevents++;
-		//~ }
-		//~ periods[i].push(nbevents);
-	//~ }
-	//~
-
 	// Positioning...
 	var margin = {top: 1, right: 1, bottom: 20, left: 1},
     width = 1250 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-	// Frise
 	var formatNumber = d3.format(" 1f");
 
 	var x = d3.scale.linear()
@@ -150,8 +139,19 @@
 			//~ .on("mouseover", function(d) { d3.select("#periodName" + d[0]).style("display", "block");})
 			//~ .on("mouseout", function(d) { d3.select("#periodName" + d[0]).style("display", "none");});
 
+	// Calculate the number of events per period
+	for (var i = 0; i < periods.length; i++) {
+		var periodHeight = 0;
+		for (var j = 0; j < events.length; j++) {
+			if (events[j]["period_id"] == periods[i]["id"]) {
+				events[j]["periodPos"] = periodHeight;
+				periodHeight++;
+			}
+		}
+	}
+
+  console.log(events);
 	// Generate lines for events
-	console.log(events);
 	svg.append("g").selectAll("eventLine")
 			.data(events)
 			.enter().append("line")
