@@ -1,7 +1,32 @@
 var events_json = [
-  [-509, "Rome becomes a Republic", 0, ""],
-  [-67, "Pompey  Defeats the pirates in the Mediterranean", 0, ""],
-  [80, "Colosseum is built", 0, ""],
-  [122, "Hadrian Wall is built", 0, ""],
-  [395, "Rome splits", 0, ""],
+  {
+    "year": -509,
+    "description": "Rome becomes a Republic",
+    "link": "",
+  },
+  {
+    "year": -67,
+    "description": "Pompey defeats the pirates in the Mediterranean",
+    "link": "",
+  },
+  {
+      "year": 80,
+      "description": "Colosseum is built",
+      "link": "",
+  },
+  {
+    "year": 122,
+    "description": "Hadrian Wall is built",
+    "link": "",
+  },
+  {
+    "year": 395,
+    "description": "Rome splits",
+    "link": "",
+  },
+  {
+    "year": 1492,
+    "description": "Columbus sailed to America",
+    "link": "",
+  },
 ]
