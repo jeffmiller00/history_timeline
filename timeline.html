@@ -63,17 +63,17 @@
 	}
 
 	// Sort the events by date
-	//events.sort(function(a, b) { return (a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0)); });
+	events.sort(function(a, b) { return (a["year"] < b["year"] ? -1 : (a["year"] > b["year"] ? 1 : 0)); });
 
 	// The order of display of the events is determined
-	var order = 1; var oldVar;
+	var order = 0; var lastYear;
 	for (var i = 0; i < events.length; i++) {
-		order++;
-		if (events[i]["year"] - oldVar > 100 || order >= 27) {
-			order = 1;
+		if (events[i]["year"] - lastYear > 300 || order >= 5) {
+			order = 0;
 		}
 		events[i]["order"] = order;
-		oldVar = events[i]["year"];
+		lastYear = events[i]["year"];
+    order++;
 	}
 
 	// Positioning...
@@ -150,7 +150,6 @@
 		}
 	}
 
-  console.log(events);
 	// Generate lines for events
 	svg.append("g").selectAll("eventLine")
 			.data(events)

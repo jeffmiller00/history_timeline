@@ -59,4 +59,22 @@ var periods_json = [
     "end_year": 632,
     "link": "https://en.wikipedia.org/wiki/Muhammad"
   },
+  { "id": 10,
+    "description": "Isaac Newton",
+    "begin_year": 1642,
+    "end_year": 1726,
+    "link": "https://en.wikipedia.org/wiki/Isaac_Newton"
+  },
+  { "id": 11,
+    "description": "English Revolution",
+    "begin_year": 1625,
+    "end_year": 1649,
+    "link": ""
+  },
+  { "id": 12,
+    "description": "French Revolution",
+    "begin_year": 1789,
+    "end_year": 1799,
+    "link": "https://en.wikipedia.org/wiki/French_Revolution"
+  },
 ]

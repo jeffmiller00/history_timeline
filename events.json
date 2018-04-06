@@ -29,4 +29,9 @@ var events_json = [
     "description": "Columbus sailed to America",
     "link": "",
   },
+  {
+    "year": 1776,
+    "description": "American Revolution",
+    "link": "",
+  },
 ]
