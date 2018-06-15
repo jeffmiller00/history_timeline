@@ -77,4 +77,22 @@ var periods_json = [
     "end_year": 1799,
     "link": "https://en.wikipedia.org/wiki/French_Revolution"
   },
+  { "id": 13,
+    "description": "Genghis Khan",
+    "begin_year": 1162,
+    "end_year": 1227,
+    "link": "https://en.wikipedia.org/wiki/Genghis_Khan"
+  },
+  { "id": 14,
+    "description": "Mongol Empire",
+    "begin_year": 1206,
+    "end_year": 1368,
+    "link": "https://en.wikipedia.org/wiki/Mongol_Empire"
+  },
+  { "id": 15,
+    "description": "The Crusades",
+    "begin_year": 1095,
+    "end_year": 1271,
+    "link": "https://www.history.com/topics/crusades"
+  },
 ]
