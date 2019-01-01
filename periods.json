@@ -95,4 +95,16 @@ var periods_json = [
     "end_year": 1271,
     "link": "https://www.history.com/topics/crusades"
   },
+  { "id": 16,
+    "description": "Civil War",
+    "begin_year": 1861,
+    "end_year": 1865,
+    "link": "https://en.wikipedia.org/wiki/American_Civil_War"
+  },
+  { "id": 17,
+    "description": "General George Custer",
+    "begin_year": 1839,
+    "end_year": 1876,
+    "link": "https://en.wikipedia.org/wiki/George_Armstrong_Custer"
+  },
 ]
